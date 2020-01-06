@@ -8,19 +8,8 @@ class Book {
 
 class UI {
     static displayBooks(){
-        const StoredBooks = [
-            {
-                title: 'Kniha 1',
-                author: 'Autor 1',
-                isbn: '215415646'
-            },
-            {
-                title: 'Kniha 2',
-                author: 'Autor 2',
-                isbn: '65966'
-            }
-        ];
-        const books = StoredBooks;
+
+        const books = Store.getBooks()
 
         books.forEach((book) => UI.addBookToList(book));
     }
@@ -107,8 +96,10 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
         UI.showAlert('Prosím doplň pole', 'danger');
     } else {
         const book = new Book(title, author, isbn);
-
+        // přidání knihy do UI
         UI.addBookToList(book);
+        //přídání knihy do lokal paměti
+        Store.addBook(book)
 
         UI.showAlert('Kniha přidána', 'succes');
 
@@ -119,5 +110,8 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 document.querySelector('#book-list').addEventListener('click', (e) => {
     // Remove book from UI
     UI.deleteBook(e.target);
+    //odebrat knihu z paměti
+    Store.removeBook(e.target.parentElement.previusElementSibling.textContent);
+    //alert
     UI.showAlert('Kniha smazána', 'succes');
 });
