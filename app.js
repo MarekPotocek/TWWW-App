@@ -39,14 +39,22 @@ class UI {
 
         list.appendChild(row)
     }
-
+    //odstranení knihy
     static deleteBook(el) {
     if(el.classList.contains('delete')){
         el.parentElement.parentElement.remove();
      }
     }
-
-
+    //custom alert
+    static showAlert(message, className){
+        const  div = document.createElement('div');
+        div.className = `alert alert-#{className}`;
+        div.appendChild(document.createTextNode(message));
+        const container = document.querySelector('.container');
+        const form = document.querySelector('#book-form');
+        container.insertBefore(div, form);
+    }
+   //vyčistí pole po přidání
     static clearFields(){
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
@@ -69,13 +77,15 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     //ověření
     if(title === '' || author === '' || isbn === ''){
         alert('Prosím doplň data')
+    } else {
+
+
+        const book = new Book(title, author, isbn);
+
+        UI.addBookToList(book);
+
+        UI.clearFields();
     }
-
-    const  book = new Book(title,author,isbn);
-
-    UI.addBookToList(book);
-
-    UI.clearFields();
 });
 
 document.querySelector('#book-list').addEventListener('click', (e) => {
