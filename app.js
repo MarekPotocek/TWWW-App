@@ -60,11 +60,11 @@ class Store {
         }else  {
             books = JSON.parse(localStorage.getItem('books'));
         }
+        return books;
     }
     static addBook(book){
         const books = Store.getBooks();
         books.push(book);
-
         localStorage.setItem('books', JSON.stringify(books));
     }
     static removeBook(isbn) {
@@ -111,7 +111,7 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
     // Remove book from UI
     UI.deleteBook(e.target);
     //odebrat knihu z paměti
-    Store.removeBook(e.target.parentElement.previusElementSibling.textContent);
+    Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
     //alert
     UI.showAlert('Kniha smazána', 'succes');
 });
