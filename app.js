@@ -41,3 +41,11 @@ class UI {
 }
 //zobraz knihy
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
+
+//přidání knihy
+document.querySelector('#book-form').addEventListener('submit', (e)=> {
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const isbn = document.querySelector('#isbn').value;
+
+});
