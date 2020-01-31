@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/25989d9b1b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"href="bootstrap.css">
     <title>Databáze knih</title>
+
 </head>
 <body>
 
@@ -33,19 +34,21 @@
           </div>
           <input type="submit" value="Add Book" class="btn btn-primary btn-block">
       </form>
-      <table class="table table-striped mt-5">
+      <table  id="exTable" class="table table-striped mt-5";>
           <thread>
               <tr>
                   <th>Název</th>
                   <th>Autor</th>
                   <th>ISBN</th>
                   <th>Koment</th>
-                  <th></th>
+                  <th>Odebrat</th>
               </tr>
           </thread>
           <tbody id="book-list"></tbody>
       </table>
+      <input type="button" value="Exportovat list" onclick="exportToExcel('exTable')" />
   </div>
+  <script src="exportToExcel.js" defer></script>
   <script src="app.js"></script>
 </body>
 </html>
