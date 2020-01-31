@@ -1,8 +1,9 @@
 class Book {
-    constructor(title, author, isbn) {
+    constructor(title, author, isbn, com) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.com = com;
     }
 }
 
@@ -22,6 +23,7 @@ class UI {
       <td>${book.title}</td>
       <td>${book.author}</td>
       <td>${book.isbn}</td>
+      <td>${book.com}</td>
       <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
     `;
 
@@ -42,13 +44,14 @@ class UI {
         const form = document.querySelector('#book-form');
         container.insertBefore(div, form);
 
-        setTimeout(()=>document.querySelector('.alert').remove(),1500);
+        setTimeout(()=>document.querySelector('.alert').remove(),1000);
     }
    //vyčistí pole po přidání
     static clearFields(){
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
         document.querySelector('#isbn').value = '';
+        document.querySelector('#com').value = '';
     }
 }
 // ukládání/odebírání knih z lokální paměti
@@ -67,11 +70,11 @@ class Store {
         books.push(book);
         localStorage.setItem('books', JSON.stringify(books));
     }
-    static removeBook(isbn) {
+    static removeBook(com) {
     const books = Store.getBooks();
 
         books.forEach((book,index )=> {
-            if(book.isbn === isbn){
+            if(book.com === com){
                 books.splice(index, 1);
             }
         });
@@ -90,12 +93,14 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const isbn = document.querySelector('#isbn').value;
+    const com = document.querySelector('#com').value;
+
 
     //ověření
-    if(title === '' || author === '' || isbn === ''){
+    if(title === '' || author === '' || isbn === '' || com === ''){
         UI.showAlert('Prosím doplň pole', 'danger');
     } else {
-        const book = new Book(title, author, isbn);
+        const book = new Book(title, author, isbn, com);
         // přidání knihy do UI
         UI.addBookToList(book);
         //přídání knihy do lokal paměti
